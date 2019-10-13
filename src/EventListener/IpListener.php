@@ -9,7 +9,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class IpListener
 {
-    private const WHITE_LIST = ['127.0.0.1'];
     /**
      * @var string[]
      */
@@ -22,7 +21,7 @@ class IpListener
 
     public function onKernelRequest(RequestEvent $event)
     {
-        if (!in_array($_SERVER['REMOTE_ADDR'], self::WHITE_LIST, true)) {
+        if (!in_array($_SERVER['REMOTE_ADDR'], $this->whiteList, true)) {
             throw new AccessDeniedException(sprintf('IP (%s) is not white listed.', $_SERVER['REMOTE_ADDR']));
         }
     }

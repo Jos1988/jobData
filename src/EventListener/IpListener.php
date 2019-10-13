@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\EventListener;
 
-use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class IpListener
 {
@@ -23,7 +23,7 @@ class IpListener
     public function onKernelRequest(RequestEvent $event)
     {
         if (!in_array($_SERVER['REMOTE_ADDR'], self::WHITE_LIST, true)) {
-            throw new AccessDeniedException('IP is not white listed.');
+            throw new AccessDeniedException(sprintf('IP (%s) is not white listed.', $_SERVER['REMOTE_ADDR']));
         }
     }
 }

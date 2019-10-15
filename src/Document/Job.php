@@ -28,8 +28,8 @@ class Job
     private $monsterId;
 
     /**
-     * @ODM\Field(type="hash")
-     * @var array
+     * @ODM\Field(type="string")
+     * @var string
      */
     private $responseData;
 
@@ -125,12 +125,12 @@ class Job
         $this->monsterId = $monsterId;
     }
 
-    public function getResponseData(): array
+    public function getResponseData(): string
     {
         return $this->responseData;
     }
 
-    public function setResponseData(array $responseData): void
+    public function setResponseData(string $responseData): void
     {
         $this->responseData = $responseData;
     }

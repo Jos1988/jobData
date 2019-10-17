@@ -25,7 +25,14 @@ class Job
      * @Assert\NotBlank
      * @var string
      */
-    private $monsterId;
+    private $sourceId;
+
+    /**
+     * @ODM\Field(type="string")
+     * @Assert\NotBlank
+     * @var string
+     */
+    private $source;
 
     /**
      * @ODM\Field(type="string")
@@ -115,14 +122,24 @@ class Job
         $this->id = $id;
     }
 
-    public function getMonsterId()
+    public function getSourceId()
     {
-        return $this->monsterId;
+        return $this->sourceId;
     }
 
-    public function setMonsterId(string $monsterId): void
+    public function getSource(): string
     {
-        $this->monsterId = $monsterId;
+        return $this->source;
+    }
+
+    public function setSource(string $source): void
+    {
+        $this->source = $source;
+    }
+
+    public function setSourceId(string $sourceId): void
+    {
+        $this->sourceId = $sourceId;
     }
 
     public function getResponseData(): string

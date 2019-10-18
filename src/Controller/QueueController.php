@@ -6,8 +6,7 @@ namespace App\Controller;
 
 use App\Entity\QueueItem;
 use App\Repository\QueueItemRepository;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\ORMException;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,7 +24,7 @@ class QueueController extends AbstractController
     private $queueRepo;
 
     /**
-     * @var EntityManager
+     * @var EntityManagerInterface
      */
     private $entityManager;
     /**
@@ -33,7 +32,7 @@ class QueueController extends AbstractController
      */
     private $logger;
 
-    public function __construct(EntityManager $entityManager, LoggerInterface $logger)
+    public function __construct(EntityManagerInterface $entityManager, LoggerInterface $logger)
     {
         $this->entityManager = $entityManager;
         $this->queueRepo = $this->entityManager->getRepository(QueueItem::class);
@@ -54,7 +53,7 @@ class QueueController extends AbstractController
         try {
             $this->entityManager->persist($items);
             $this->entityManager->flush();
-        } catch (ORMException $e) {
+        } catch (Exception $e) {
             return $this->getErrorResponse($e);
         }
 
@@ -72,7 +71,7 @@ class QueueController extends AbstractController
         try {
             $this->entityManager->persist($item);
             $this->entityManager->flush();
-        } catch (ORMException $e) {
+        } catch (Exception $e) {
             return $this->getErrorResponse($e);
         }
 
